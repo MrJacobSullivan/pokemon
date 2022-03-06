@@ -10,9 +10,12 @@ export const appRouter = trpc
       id: z.number(),
     }),
     async resolve({ input }) {
-      const pokeApiConnection = new PokemonClient();
-      const pokemon = await pokeApiConnection.getPokemonById(input.id);
-      return { name: pokemon.name, sprites: pokemon.sprites };
+      const pokemon = await prisma.pokemon.findFirst({
+        where: { id: input.id },
+      });
+
+      if (!pokemon) throw new Error('tRPC+Prisma Error');
+      return pokemon;
     },
   })
   .mutation('cast-vote', {
@@ -22,7 +25,10 @@ export const appRouter = trpc
     }),
     async resolve({ input }) {
       const voteInDb = await prisma.vote.create({
-        data: { ...input },
+        data: {
+          votedForId: input.votedFor,
+          votedAgainstId: input.votedAgainst,
+        },
       });
       return { success: true, vote: voteInDb };
     },
