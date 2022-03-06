@@ -72,6 +72,10 @@ const Home = () => {
           )}
         <div className="p-2" />
       </div>
+
+      <div className="absolute bottom-0 w-full pb-2 text-xl text-center">
+        <a href="https://github.com/MrJacobSullivan/pokemon">GitHub</a>
+      </div>
     </div>
   );
 };
