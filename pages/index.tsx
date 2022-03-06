@@ -30,8 +30,14 @@ const Home = () => {
   const firstPokemon = trpc.useQuery(['get-pokemon-by-id', { id: firstId }]);
   const secondPokemon = trpc.useQuery(['get-pokemon-by-id', { id: secondId }]);
 
+  const voteMutation = trpc.useMutation(['cast-vote']);
+
   const castVote = (selected: number) => {
-    // TODO: fire mutation to persist changes
+    if (selected === firstId) {
+      voteMutation.mutate({ votedFor: firstId, votedAgainst: secondId });
+    } else {
+      voteMutation.mutate({ votedFor: secondId, votedAgainst: firstId });
+    }
 
     updateIds(() => getOptionsForVote());
   };
