@@ -51,7 +51,7 @@ const Home = () => {
 
   return (
     <div className="flex flex-col items-center justify-center w-screen h-screen">
-      <div className="text-2xl text-center">Which Pokemon is rounder?</div>
+      <div className="text-2xl text-center">Which Pokémon is Better?</div>
       <div className="p-2" />
       <div className="flex items-center justify-between max-w-2xl p-8 border rounded">
         {!firstPokemon.isLoading &&
